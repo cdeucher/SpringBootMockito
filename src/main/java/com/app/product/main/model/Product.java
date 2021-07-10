@@ -1,4 +1,4 @@
-package com.company.chat.main.model;
+package com.app.product.main.model;
 
 public class Product {
 
@@ -16,10 +16,6 @@ public class Product {
 
     public int getId() {
         return Id;
-    }
-
-    public void setId(int id) {
-        Id = id;
     }
 
     public String getName() {

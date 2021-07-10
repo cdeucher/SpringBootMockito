@@ -1,15 +1,14 @@
-package com.company.chat.main.controller;
+package com.app.product.main.controller;
 
-import com.company.chat.main.dao.ProductDao;
-import com.company.chat.main.model.Product;
-import com.company.chat.main.service.ProductService;
+import com.app.product.main.dao.ProductDao;
+import com.app.product.main.model.Product;
+import com.app.product.main.service.ProductService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static com.app.product.main.common.Common.generateRandomProductId;
 
 @Controller
 @RequestMapping("/product")
@@ -35,7 +34,10 @@ public class ProductController {
 
     @RequestMapping(value ="/add", method = RequestMethod.POST)
     public String addProduct(@RequestParam String name, @RequestParam String description, @RequestParam String image){
-         prodService.insertNewProduct(name, description, image);
+         int id = generateRandomProductId();
+         Product newProd = new Product(id, name, description, image);
+
+         prodService.insertNewProduct(newProd);
          return "prod/form";
     }
 
