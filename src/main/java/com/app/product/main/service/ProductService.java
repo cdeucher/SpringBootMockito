@@ -5,6 +5,7 @@ import com.app.product.main.model.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ProductService {
@@ -16,7 +17,7 @@ public class ProductService {
     }
 
     public Product insertNewProduct(Product prod){
-        if ( dao.getProductById(prod.getId()).exists() )
+        if ( Objects.isNull(dao.getProductById(prod.getId())) )
             return dao.save(prod);
         else
             return null;

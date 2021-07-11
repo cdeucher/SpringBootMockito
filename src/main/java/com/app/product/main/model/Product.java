@@ -3,9 +3,9 @@ package com.app.product.main.model;
 public class Product {
 
     private int Id;
-    private String Name;
-    private String Description;
-    private String Image;
+    private String Name = "";
+    private String Description = "";
+    private String Image = "";
 
     public Product add(int id, String name, String description, String image) {
         Id = id;

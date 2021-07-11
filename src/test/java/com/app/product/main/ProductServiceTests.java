@@ -108,6 +108,7 @@ class ProductServiceTests {
 		public ThenDSL whenPerformSaveProduct() {
 			Product newProd = new Product().add(prodData.id,prodData.name,prodData.description,prodData.url);
 			service.insertNewProduct(newProd);
+
 			return new ThenDSL();
 		}
 

@@ -23,7 +23,7 @@
         <td th:text="${prod.id}" />
         <td th:text="${prod.name}" />
         <a th:href="${prod.id}">Ver</a>
-        <a th:href="@{'del/'+${prod.id}}" text="Ver" >Del</a>
+        <a th:href="@{'/product/del/'+${prod.id}}" text="Ver" >Del</a>
     </tr>
 </div>
 </body>
