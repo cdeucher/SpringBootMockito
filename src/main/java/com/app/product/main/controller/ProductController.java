@@ -4,8 +4,10 @@ import com.app.product.main.dao.ProductDao;
 import com.app.product.main.model.Product;
 import com.app.product.main.service.ProductService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.app.product.main.common.Common.generateRandomProductId;
@@ -14,12 +16,11 @@ import static com.app.product.main.common.Common.generateRandomProductId;
 @RequestMapping("/product")
 public class ProductController {
 
-    private ProductDao dao;
+    private ProductDao dao = new ProductDao();
     private ProductService prodService;
 
     public ProductController() {
-        this.dao = new ProductDao();
-        this.prodService = new ProductService(dao);
+        prodService = new ProductService(dao);
     }
 
     @RequestMapping("/")
@@ -33,11 +34,12 @@ public class ProductController {
     }
 
     @RequestMapping(value ="/add", method = RequestMethod.POST)
-    public String addProduct(@RequestParam String name, @RequestParam String description, @RequestParam String image){
+    public String addProduct(Model model, @RequestParam String name, @RequestParam String description, @RequestParam String image){
          int id = generateRandomProductId();
-         Product newProd = new Product(id, name, description, image);
-
+         Product newProd = new Product().add(id, name, description, image);
          prodService.insertNewProduct(newProd);
+
+        model.addAttribute("productList", prodService.listProducts());
          return "prod/form";
     }
 
@@ -53,5 +55,10 @@ public class ProductController {
         return prodService.listProducts();
     }
 
-
+    @RequestMapping("/del/{productId}")
+    public String removeProduct(Model model, @PathVariable int productId){
+        prodService.removeProductById(productId);
+        model.addAttribute("productList", prodService.listProducts());
+        return "prod/form";
+    }
 }

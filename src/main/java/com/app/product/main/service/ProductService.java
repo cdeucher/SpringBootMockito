@@ -16,7 +16,10 @@ public class ProductService {
     }
 
     public Product insertNewProduct(Product prod){
-        return dao.save(prod);
+        if ( dao.getProductById(prod.getId()).exists() )
+            return dao.save(prod);
+        else
+            return null;
     }
 
     public Product getProductById(int productId) {
@@ -27,4 +30,7 @@ public class ProductService {
         return dao.list();
     }
 
+    public void removeProductById(int productId) {
+        dao.removeProduct(productId);
+    }
 }

@@ -58,14 +58,42 @@ class ProductServiceTests {
 			.checkProductById(12);
 	}
 
+	@Test
+	void whenRemoveTheProduct_ShouldCheckIfTheProductWasRemoved(){
+		given()
+		.whenPerformRemoveProduct(12)
+		.then()
+			.checkRemovedProductById(12);
+	}
+
+	@Test
+	void whenAddAProductAlreadyIn_ShouldCheckAvoidDuplicateProduct(){
+		given()
+			.productAlreadyExists(product -> {
+				product.id = 12;
+				product.name = "123";
+				product.description = "123";
+				product.url = "http://url.com";
+			})
+			.productProvider(product -> {
+				product.id = 12;
+				product.name = "123";
+				product.description = "123";
+				product.url = "http://url.com";
+			})
+		.whenPerformSaveProduct()
+		.then()
+			.checkIfProductWasDuplicate(12);
+	}
+
 	private DSL given(){
 		return new DSL();
 	}
 	private static class DSL {
 
-		ProductDao dao =  Mockito.mock(ProductDao.class);
 		ProductService service;
 		ProductProviderData prodData;
+		ProductDao dao =  Mockito.mock(ProductDao.class);
 
 		public DSL() {
 			service = new ProductService(dao);
@@ -78,7 +106,7 @@ class ProductServiceTests {
 		}
 
 		public ThenDSL whenPerformSaveProduct() {
-			Product newProd = new Product(prodData.id,prodData.name,prodData.description,prodData.url);
+			Product newProd = new Product().add(prodData.id,prodData.name,prodData.description,prodData.url);
 			service.insertNewProduct(newProd);
 			return new ThenDSL();
 		}
@@ -91,6 +119,18 @@ class ProductServiceTests {
 		public ThenDSL whenGetProductById(int productId) {
 			service.getProductById(productId);
 			return new ThenDSL();
+		}
+
+		public ThenDSL whenPerformRemoveProduct(int productId) {
+			service.removeProductById(productId);
+			return new ThenDSL();
+		}
+
+		public DSL productAlreadyExists(Consumer <ProductProviderData> product) {
+			product.accept(prodData);
+			Product newProd = new Product().add(prodData.id,prodData.name,prodData.description,prodData.url);
+			Mockito.when(dao.getProductById(prodData.id)).thenReturn(newProd);
+			return this;
 		}
 
 		public class ThenDSL {
@@ -110,6 +150,15 @@ class ProductServiceTests {
 
 			public void checkProductById(int productId) {
 				Mockito.verify(dao).getProductById(productId);
+			}
+
+			public void checkRemovedProductById(int productId) {
+				Mockito.verify(dao).removeProduct(productId);
+			}
+
+			public void checkIfProductWasDuplicate(int productId){
+				Mockito.verify(dao).getProductById(productId);
+				Mockito.verify(dao, Mockito.times(0)) .save(Mockito.any());
 			}
 		}
 	}

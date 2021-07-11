@@ -18,10 +18,15 @@ public class ProductDao {
     }
 
     public Product getProductById(int id){
-        return Products.stream().filter(product -> product.getId() == id).findFirst().get();
+
+        return Products.stream().filter(product -> product.getId() == id).findFirst().orElse(new Product());
     }
 
     public List<Product> list(){
         return Products;
+    }
+
+    public void removeProduct(int productId) {
+        Products.removeIf(product -> product.getId() == productId);
     }
 }

@@ -7,11 +7,17 @@ public class Product {
     private String Description;
     private String Image;
 
-    public Product(int id, String name, String description, String image) {
+    public Product add(int id, String name, String description, String image) {
         Id = id;
         Name = name;
         Description = description;
         Image = image;
+
+        return this;
+    }
+
+    public boolean exists(){
+        return Name == null;
     }
 
     public int getId() {
