@@ -11,10 +11,6 @@
             <label for="input-produto-description">Description</label>
             <input id="input-produto-description" name="description" type="text" class="form-control"/>
         </div>
-        <div class="form-group">
-            <label for="input-produto-image">Image</label>
-            <input id="input-produto-image" name="image" type="text" class="form-control"/>
-        </div>
         <button class="btn btn-primary" id="button-submit" type="submit" role="button">Salvar</button>
     </form>
 </div>
@@ -24,6 +20,10 @@
         <td th:text="${prod.name}" />
         <a th:href="${prod.id}">Ver</a>
         <a th:href="@{'/product/del/'+${prod.id}}" text="Ver" >Del</a>
+        (
+            <a th:href="@{'/images/'+${prod.id}}" text="Images" >Images</a>
+            <a th:href="@{'/images/'+${prod.id}}" text="JSON" >JSON</a>
+        )
     </tr>
 </div>
 </body>

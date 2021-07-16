@@ -1,6 +1,5 @@
 package com.app.product.main;
 
-import com.app.product.main.common.ArrayTests;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

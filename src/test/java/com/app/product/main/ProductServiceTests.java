@@ -4,6 +4,7 @@ import com.app.product.main.dao.ProductDao;
 import com.app.product.main.model.Product;
 import com.app.product.main.service.ProductService;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -25,7 +26,7 @@ class ProductServiceTests {
 
 	@Test
 	void whenTheListOfProductsAreEmpty(){
-		Assert.assertTrue(prod.listProducts().isEmpty());
+		Assertions.assertTrue(prod.listProducts().isEmpty());
 	}
 
 	@Test
@@ -106,7 +107,7 @@ class ProductServiceTests {
 		}
 
 		public ThenDSL whenPerformSaveProduct() {
-			Product newProd = new Product().add(prodData.id,prodData.name,prodData.description,prodData.url);
+			Product newProd = new Product().add(prodData.id,prodData.name,prodData.description);
 			service.insertNewProduct(newProd);
 
 			return new ThenDSL();
@@ -129,7 +130,7 @@ class ProductServiceTests {
 
 		public DSL productAlreadyExists(Consumer <ProductProviderData> product) {
 			product.accept(prodData);
-			Product newProd = new Product().add(prodData.id,prodData.name,prodData.description,prodData.url);
+			Product newProd = new Product().add(prodData.id,prodData.name,prodData.description);
 			Mockito.when(dao.getProductById(prodData.id)).thenReturn(newProd);
 			return this;
 		}

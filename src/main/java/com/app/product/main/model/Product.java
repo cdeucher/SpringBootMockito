@@ -5,19 +5,13 @@ public class Product {
     private int Id;
     private String Name = "";
     private String Description = "";
-    private String Image = "";
 
-    public Product add(int id, String name, String description, String image) {
+    public Product add(int id, String name, String description) {
         Id = id;
         Name = name;
         Description = description;
-        Image = image;
 
         return this;
-    }
-
-    public boolean exists(){
-        return Name == null;
     }
 
     public int getId() {
@@ -38,13 +32,5 @@ public class Product {
 
     public void setDescription(String description) {
         Description = description;
-    }
-
-    public String getImage() {
-        return Image;
-    }
-
-    public void setImage(String image) {
-        Image = image;
     }
 }

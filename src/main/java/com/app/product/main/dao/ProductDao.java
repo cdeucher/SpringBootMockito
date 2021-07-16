@@ -18,7 +18,7 @@ public class ProductDao {
     }
 
     public Product getProductById(int id){
-        return Products.stream().filter(product -> product.getId() == id).findFirst().orElse(new Product());
+        return Products.stream().filter(product -> product.getId() == id).findFirst().orElse(null);
     }
 
     public List<Product> list(){

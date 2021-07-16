@@ -7,12 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.app.product.main.common.Common.generateRandomProductId;
+import static com.app.product.main.common.Common.generateRandomId;
 
 @Controller
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/product")
 public class ProductController {
 
@@ -29,14 +29,15 @@ public class ProductController {
     }
 
     @RequestMapping("/form")
-    public String formProduct(){
+    public String formProduct(Model model){
+        model.addAttribute("productList", prodService.listProducts());
         return "prod/form";
     }
 
     @RequestMapping(value ="/add", method = RequestMethod.POST)
-    public String addProduct(Model model, @RequestParam String name, @RequestParam String description, @RequestParam String image){
-         int id = generateRandomProductId();
-         Product newProd = new Product().add(id, name, description, image);
+    public String addProduct(Model model, @RequestParam String name, @RequestParam String description){
+         int id = generateRandomId();
+         Product newProd = new Product().add(id, name, description);
          prodService.insertNewProduct(newProd);
 
         model.addAttribute("productList", prodService.listProducts());

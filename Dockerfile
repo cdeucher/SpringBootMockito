@@ -1,3 +1,6 @@
+#docker build -t springboot:01 .
+#docker tag  springboot:01 ryanface/springboot:01
+#docker push ryanface/springboot:01
 FROM openjdk:11.0.11-jdk-oracle
 
 COPY target/* /opt/
