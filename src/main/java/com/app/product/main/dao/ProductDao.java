@@ -18,7 +18,10 @@ public class ProductDao {
     }
 
     public Product getProductById(int id){
-        return Products.stream().filter(product -> product.getId() == id).findFirst().orElse(null);
+        return Products.stream().filter(product -> product.getId() == id ).map(p ->{
+            p.setImagesList(ImageDao.getImagesByProductId(p.getId()));
+            return p;
+        }).findFirst().orElse(null);
     }
 
     public List<Product> list(){

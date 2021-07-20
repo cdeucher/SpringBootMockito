@@ -3,9 +3,6 @@ package com.app.product.main;
 import com.app.product.main.dao.ProductDao;
 import com.app.product.main.model.Product;
 import com.app.product.main.service.ProductService;
-import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,20 +11,6 @@ import java.util.function.Consumer;
 
 @SpringBootTest
 class ProductServiceTests {
-
-	ProductService prod;
-	ProductDao dao;
-
-	@BeforeEach
-	void setup(){
-		dao =  Mockito.mock(ProductDao.class);
-		prod = new ProductService(dao);
-	}
-
-	@Test
-	void whenTheListOfProductsAreEmpty(){
-		Assertions.assertTrue(prod.listProducts().isEmpty());
-	}
 
 	@Test
 	void whenAddNewProduct_ShouldCheckIfProductWasSaved() {

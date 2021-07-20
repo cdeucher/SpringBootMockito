@@ -10,10 +10,10 @@ import java.util.Objects;
 @Service
 public class ProductService {
 
-    private ProductDao dao;
-    
+    private static ProductDao dao;
+
     public ProductService(ProductDao dao) {
-        this.dao = dao;
+        ProductService.dao = dao;
     }
 
     public Product insertNewProduct(Product prod){

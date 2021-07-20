@@ -17,8 +17,7 @@ import static com.app.product.main.common.Common.generateRandomId;
 @RequestMapping("/images")
 public class ImagesController {
 
-    private ImageDao dao = new ImageDao();
-    private ImageService imgService;
+    private static ImageService imgService;
 
     public ImagesController(ImageDao dao) {
         imgService = new ImageService(dao);
@@ -53,4 +52,9 @@ public class ImagesController {
         return "prod/image";
     }
 
+    @RequestMapping("/del/{imageId}")
+    public String removeProduct(Model model, @PathVariable int imageId){
+        imgService.removeImageById(imageId);
+        return "prod/image";
+    }
 }
