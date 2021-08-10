@@ -1,8 +1,8 @@
-package com.app.product.main;
+package com.app.product;
 
-import com.app.product.main.dao.ProductDao;
-import com.app.product.main.model.Product;
-import com.app.product.main.service.ProductService;
+import com.app.product.repository.ProductDao;
+import com.app.product.entity.Product;
+import com.app.product.service.ProductService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
